@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EventDroid</string>
+    <string name="action_settings">Settings</string>
+</resources>
