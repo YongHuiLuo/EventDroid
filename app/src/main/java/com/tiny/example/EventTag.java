@@ -8,6 +8,13 @@ package com.tiny.example;
  */
 public class EventTag {
 
-    public static final int TEST_SEND_TAG = 10000;
+    /**
+     * 发送String类型的消息
+     */
+    public static final int TEST_SEND_STRING_TAG = 10000;
 
+    /**
+     * 发送interger类型的消息
+     */
+    public static final int TEST_SEND_INTERGER_TAG = 10001;
 }

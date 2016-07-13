@@ -83,6 +83,8 @@ public class EventDroid {
      * private constructor
      */
     private EventDroid() {
+        mEventMonitor = new EventMonitor();
+        mEventMonitor.start();
     }
 
     /**

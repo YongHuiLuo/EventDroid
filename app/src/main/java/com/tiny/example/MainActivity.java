@@ -46,20 +46,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), SendMessageActivity.class);
+                intent.setClass(getApplicationContext(), SecondActivity.class);
                 startActivity(intent);
             }
         });
 
-        EventDroid.ins().register(EventTag.TEST_SEND_TAG, receiver);
+        EventDroid.ins().register(EventTag.TEST_SEND_INTERGER_TAG, receiver);
     }
 
 
     IEvtReceiver receiver = new IEvtReceiver() {
         @Override
-        public int onReceiver(int tag, IEvtReceiver receiver, Object result) {
-            if (tag == EventTag.TEST_SEND_TAG) {
+        public int onReceiver(int tag, IEvtReceiver receiver, final Object result) {
+            if (tag == EventTag.TEST_SEND_INTERGER_TAG) {
                 Log.d("tiny", "result --- " + result);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtContent.setText(result.toString());
+                    }
+                });
                 Toast.makeText(getBaseContext(), result.toString(), Toast.LENGTH_LONG).show();
             }
             return 0;

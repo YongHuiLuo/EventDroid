@@ -27,7 +27,9 @@ public class SendMessageActivity extends Activity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventDroid.ins().send(EventTag.TEST_SEND_TAG, "5");
+                EventDroid.ins().send(EventTag.TEST_SEND_INTERGER_TAG, 5);
+                EventDroid.ins().send(EventTag.TEST_SEND_STRING_TAG, "10");
+                finish();
             }
         });
     }
