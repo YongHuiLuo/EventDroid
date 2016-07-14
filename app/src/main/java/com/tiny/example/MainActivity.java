@@ -18,20 +18,31 @@ import com.tiny.event.EventDroid;
 import com.tiny.event.IEvtReceiver;
 import com.tiny.event.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnGoto;
-    private TextView txtContent;
+    @BindView(R.id.btn_goto)
+    Button btnGoto;
+    @BindView(R.id.txt_content)
+    TextView txtContent;
+
+    @OnClick(R.id.btn_goto)
+    void gotoSecond() {
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(), SecondActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        btnGoto = (Button) findViewById(R.id.btn_goto);
-        txtContent = (TextView) findViewById(R.id.txt_content);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,15 +50,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            }
-        });
-
-        btnGoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), SecondActivity.class);
-                startActivity(intent);
             }
         });
 

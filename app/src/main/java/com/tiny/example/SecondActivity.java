@@ -1,8 +1,8 @@
 package com.tiny.example;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +21,16 @@ import butterknife.OnClick;
  * 创建时间： on 2016/7/13.
  * 修改者： 修改日期： 修改内容：
  */
-public class SecondActivity extends Activity {
+public class SecondActivity extends AppCompatActivity {
+
+    @BindView(R.id.btn_goto)
+    Button mBtnSkip;
 
     @BindView(R.id.txt_message)
     TextView mTxtMessage;
 
-    @OnClick(R.id.btn_goto) void skip() {
+    @OnClick(R.id.btn_goto)
+    void skip() {
         Intent intent = new Intent(getApplicationContext(), SendMessageActivity.class);
         startActivity(intent);
     }

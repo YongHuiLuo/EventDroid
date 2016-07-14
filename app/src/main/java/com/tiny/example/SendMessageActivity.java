@@ -1,12 +1,15 @@
 package com.tiny.example;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.tiny.event.EventDroid;
 import com.tiny.event.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created JackLuo
@@ -14,23 +17,22 @@ import com.tiny.event.R;
  * 创建时间： on 2016/6/26.
  * 修改者： 修改日期： 修改内容：
  */
-public class SendMessageActivity extends Activity {
+public class SendMessageActivity extends AppCompatActivity {
 
-    private Button btnSend;
+    @BindView(R.id.btn_send)
+    Button send;
+
+    @OnClick(R.id.btn_send)
+    void onSend() {
+        EventDroid.ins().send(EventTag.TEST_SEND_INTERGER_TAG, 5);
+        EventDroid.ins().send(EventTag.TEST_SEND_STRING_TAG, "10");
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send);
-        btnSend = (Button) findViewById(R.id.btn_send);
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventDroid.ins().send(EventTag.TEST_SEND_INTERGER_TAG, 5);
-                EventDroid.ins().send(EventTag.TEST_SEND_STRING_TAG, "10");
-                finish();
-            }
-        });
+        ButterKnife.bind(this);
     }
 }
