@@ -197,29 +197,44 @@ public class EventDroid {
             WeakReference<IEvtReceiver> ier = null;
 
             while (flag) {
-                if (senderList != null && senderList.size() > 0) {
-                    while (!senderList.isEmpty()) {
-                        is = senderList.poll();
-                        tag = is.getTag();
+                try {
 
-                        Vector<WeakReference<IEvtReceiver>> iers = receiverList.get(tag);
-                        if (iers != null) {
-                            synchronized (mLockReceiver) {
-                                Iterator<WeakReference<IEvtReceiver>> iterator = iers.iterator();
-                                while (iterator.hasNext()) {
-                                    ier = iterator.next();
-                                    mEventHandler.sendMessage(mEventHandler.obtainMessage(0, new InnerStructure(ier.get(),
-                                            is.getMessageData(), is.getTag())));
-                                    if (ier.get() == null) {
-                                        iterator.remove();
+
+                    if (senderList != null && senderList.size() > 0) {
+                        while (!senderList.isEmpty()) {
+                            is = senderList.poll();
+                            tag = is.getTag();
+
+                            Vector<WeakReference<IEvtReceiver>> iers = receiverList.get(tag);
+                            if (iers != null) {
+                                synchronized (mLockReceiver) {
+                                    Iterator<WeakReference<IEvtReceiver>> iterator = iers.iterator();
+                                    while (iterator.hasNext()) {
+                                        ier = iterator.next();
+                                        mEventHandler.sendMessage(mEventHandler.obtainMessage(0, new InnerStructure(ier.get(),
+                                                is.getMessageData(), is.getTag())));
+                                        if (ier.get() == null) {
+                                            iterator.remove();
+                                        }
                                     }
                                 }
                             }
                         }
+                    } else {
+                        try {
+                            synchronized (this) {
+                                wait();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            break;
+                        }
                     }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                    break;
                 }
             }
-
         }
     }
 
